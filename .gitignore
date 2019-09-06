@@ -26,3 +26,4 @@ inst/shinyApp/www/style.css
 *.blg
 
 *.Rhistory
+.Rproj.user

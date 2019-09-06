@@ -20,8 +20,6 @@ calculateMismatchFrequencies <- function(fastqFiles, referenceSequence, method=c
       # idx <- (lengths(deletion(aln1)) + lengths(insertion(aln1))) == 0
       # table(idx)
       
-      seqErr <- tapply(mismatchSummary$Count, mismatchSummary$SubjectPosition, sum)
-      
       # exclude SNP from SNPList
       if(!is.null(excludeSNPList)){
         idx <- paste(mismatchSummary$Pattern, mismatchSummary$SubjectPosition) %in% 
@@ -44,6 +42,6 @@ calculateMismatchFrequencies <- function(fastqFiles, referenceSequence, method=c
 
 callGenotype <- function(mismatchRateTable, minMismatchRate=0.5, minReplicate=2){
   potSNP <- rowSums(mismatchRateTable>minMismatchRate, na.rm=T)>=minReplicate
-  potSNP <- seq_along(potSNP)[potSNP]
+  potSNP <- which(potSNP)
   return(potSNP)
 }
